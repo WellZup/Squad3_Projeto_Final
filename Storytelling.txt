@@ -1,0 +1,93 @@
+Storytelling de Desenvolvimento da Ideia: Aplicativo de Bem-Estar para Colaboradores
+
+Capítulo 1: A Origem da Ideia
+
+	Era uma vez em um mundo empresarial cada vez mais competitivo, onde as preocupações com o bem-estar dos colaboradores eram muitas vezes negligenciadas. Empresas lutavam para manter seus funcionários felizes e saudáveis, enquanto colaboradores enfrentavam pressões e desafios diários em suas vidas profissionais.
+
+	Foi nesse cenário que surgiu a ideia de um aplicativo em Java que impactaria positivamente os negócios e a comunidade, concentrando-se na saúde mental e física dos colaboradores de empresas. A ideia começou como um sonho de criar uma ferramenta que coletaria dados para compreender melhor o bem-estar dos colaboradores e promoveria mudanças significativas na cultura empresarial.
+
+Capítulo 2: Definindo a Visão
+
+	A visão: desenvolver um aplicativo que permitisse aos colaboradores avaliarem seu bem-estar diariamente, de forma anônima, para que pudessem se expressar livremente. O aplicativo coletará informações sobre ânimo, níveis de estresse, energia, qualidade do sono e atividade física. Essas avaliações serão a base para criar um perfil de bem-estar individual, ajudando os colaboradores a entenderem melhor sua saúde mental e física.
+
+	Mas a visão não para por aí. A ideia é utilizar os dados coletados para calcular métricas-chave, como média de ânimo, níveis de estresse e energia. Além disso, os dados permitirão segmentar os resultados por setores ou equipes, proporcionando uma visão mais detalhada do bem-estar dentro da organização.
+
+Capítulo 3: Desenvolvendo os Recursos
+
+	Os primeiros recursos a serem implementados serão as Avaliações de Bem-Estar Diárias. As perguntas testes para elaboração, utilizando escalas de classificação de 1 a 5 para medir o ânimo, o estresse, a energia e a qualidade do sono. Além disso, a incluir perguntas sobre atividade física proporcionará uma visão abrangente do bem-estar dos colaboradores.
+	A colaboração de uma psicóloga é fundamental para garantir que as perguntas serão formuladas de maneira sensível e útil. A confidencialidade e o anonimato dos colaboradores serão prioridades absolutas.
+
+Capítulo 4: Impactos nos Negócios e nas Pessoas
+
+Impactos para as Pessoas:
+
+- Melhoria do Bem-Estar: Colaboradores se tornaram mais conscientes de sua saúde mental e física, incentivando-os a buscar uma vida mais saudável e equilibrada.
+- Autoconhecimento: O processo de autoavaliação ajudou os colaboradores a entenderem melhor seus sentimentos e necessidades em relação ao trabalho e à saúde.
+- Intervenção Precoce: Identificar níveis elevados de estresse ou baixa energia permitiu que os funcionários tomassem medidas precoces para reduzir o estresse e aumentar a energia, evitando problemas de saúde mais graves.
+
+
+
+Impactos para os Negócios:
+
+- Melhoria da Produtividade: Funcionários saudáveis e felizes tendiam a ser mais produtivos, beneficiando diretamente o desempenho da empresa.
+- Redução do Absenteísmo: Um ambiente de trabalho saudável e medidas preventivas reduziram o absenteísmo, economizando recursos da empresa.
+- Menos Turnover: Colaboradores satisfeitos e saudáveis tinham menos probabilidade de deixar a empresa, economizando tempo e dinheiro em treinamento e recrutamento.
+- Melhoria da Cultura Organizacional: O foco na saúde e bem-estar demonstrou que a empresa se preocupava com seus funcionários, melhorando a cultura corporativa e a lealdade dos colaboradores.
+- Identificação de Problemas: Os dados coletados identificaram problemas no ambiente de trabalho que contribuíam para níveis elevados de estresse ou baixa energia, permitindo a correção.
+- Tomada de Decisões Baseada em Dados: As métricas de bem-estar foram usadas para tomar decisões informadas sobre programas de saúde e bem-estar, horários de trabalho e políticas de flexibilidade.
+
+
+Epílogo: Impactando Vidas e Negócios
+
+	Assim, a ideia de um aplicativo simples em Java se tornou uma ferramenta poderosa para melhorar a saúde mental e física dos colaboradores e impulsionar o sucesso dos negócios. A jornada estava apenas começando, com a promessa de impactar positivamente vidas e comunidades, criando um ambiente de trabalho mais saudável e equilibrado.
+Pseudocódigo da ideia
+
+Requisitos técnicos obrigatórios:
+○ Navegação;
+○ Implementação de arquitetura;
+○ Dados dinâmicos(consumo de API);
+○ Postgres e H2(banco de dados);
+○ Aplicação de SOLID;
+○ Boas práticas de desenvolvimento e limpeza de código;
+
+1. Início do programa
+
+2. Definir uma lista de perguntas para as avaliações de bem-estar:
+   - Nível de ânimo
+   - Níveis de estresse
+   - Energia
+   - Qualidade do sono
+   - Atividade Física
+
+3. Configurar a arquitetura da aplicação usando Spring Boot:
+   3.1. Implementar uma estrutura de navegação.
+   3.2. Implementar uma arquitetura sólida (SOLID) para a aplicação.
+   3.3. Utilizar o padrão de projeto do Spring Boot para consumir dados dinâmicos de uma API.
+
+4. Configurar o banco de dados com Spring Boot:
+   4.1. Utilizar o Spring para interagir com o Postgres e H2.
+   4.2. Criar entidades e tabelas no banco de dados para armazenar os registros de avaliação, incluindo data e respostas.
+   4.3. Criar um repositório para cada entidade para gerenciar as operações de banco de dados.
+
+5. Criar Data Transfer Objects (DTO) para as Entidades:
+   5.1. Definir classes DTO que representam os dados que serão trocados entre o cliente e o servidor.
+
+6. Criar Services (Camada de Serviço) para a lógica de negócios:
+   6.1. Implementar classes de serviço que contêm a lógica de negócios, como coleta de avaliações e cálculo de métricas.
+   6.2. Utilizar as anotações de Dependência do Spring para injetar repositórios e outras dependências necessárias nas classes de serviço.
+
+7. Criar Controllers (Camada de Controladores) para gerenciar solicitações HTTP:
+   7.1. Implementar controladores que expõem endpoints HTTP para coletar avaliações e buscar métricas.
+   7.2. Mapear solicitações HTTP para métodos de serviço apropriados e retorne respostas HTTP adequadas, usando os DTOs.
+
+8. Configurar o roteamento de URLs e endpoints no Spring Boot:
+   8.1. Usar anotações como `@RequestMapping` para mapear URLs para métodos de controlador.
+   8.2. Configurar a navegação entre as páginas da aplicação usando recursos do Spring Boot
+
+9. Função lógica principal:
+    9.1. Configurar a aplicação Spring Boot com os requisitos técnicos, incluindo navegação e arquitetura sólida.
+    9.2. Configurar o acesso ao banco de dados Postgres e H2 com Spring Boot.
+    9.3. Chamar a função coletarAvaliacao() para cada colaborador por meio do endpoint HTTP.
+    9.4. Chamar a função calcularMetricasColetadas() para analisar os dados coletados por meio do endpoint HTTP.
+
+10. Fim do programa
