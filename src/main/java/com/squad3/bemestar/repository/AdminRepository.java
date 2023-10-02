@@ -1,4 +1,8 @@
 package com.squad3.bemestar.repository;
 
-public class AdminRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AdminRepository extends JpaRepository {
 }

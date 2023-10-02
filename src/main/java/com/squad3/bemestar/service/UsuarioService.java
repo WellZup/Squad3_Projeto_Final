@@ -1,2 +1,7 @@
-package com.squad3.bemestar.service;public class UsuarioService {
+package com.squad3.bemestar.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UsuarioService {
 }
