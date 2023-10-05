@@ -1,6 +1,7 @@
 package com.squad3.bemestar.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Perguntas {
     //Cada campanha pode ter sua própria lista de perguntas associadas a ela.
     // Quando você cria uma campanha e adiciona perguntas a ela,
     // essas perguntas estarão relacionadas a essa campanha específica.
+
     @ManyToOne
     @JoinColumn(name = "campanha_id")
     private Campanhas campanhas;
