@@ -1,24 +1,16 @@
 package com.squad3.bemestar.domain.dto;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PerguntaDTO {
 
-    public PerguntaDTO(String texto) {
-        this.texto = texto;
-    }
-    public PerguntaDTO(){
-        super();
-    }
-
-    private String texto;
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
+    private Long id;
+    private String perguntaTexto;
+    private String tipo;
+    private String nomeCampanha;
 }

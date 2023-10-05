@@ -1,7 +1,5 @@
 package com.squad3.bemestar.controller;
 
-import com.squad3.bemestar.domain.entity.Campanhas;
-import com.squad3.bemestar.domain.entity.Perguntas;
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.service.RespostasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,7 @@ public class RespostasController {
         List<Respostas> respostas = respostasService.listarRespostas();
         return ResponseEntity.ok(respostas);
     }
+
     @PostMapping
     public ResponseEntity<Respostas> adicionaResposta(@RequestBody Respostas resposta) {
         Respostas novaResposta = respostasService.adicionaResposta(resposta);
@@ -42,4 +41,6 @@ public class RespostasController {
         }
 
     }
+
+
 }
