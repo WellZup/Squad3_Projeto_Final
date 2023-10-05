@@ -22,8 +22,21 @@ public class PerguntasService {
         return perguntasRepository.save(perguntas);
     }
 
+    public List<Perguntas> listarPerguntas() {return  perguntasRepository.findAll();}
 
-//    public List<Perguntas> listarPerguntas() {
-//        return perguntasRepository.findAll();
-//    }
+    public Perguntas buscarPorId(Long id) {return perguntasRepository.findById(id).orElseThrow();}
+
+    public Perguntas atualizarPerguntas(Long id) {
+        Perguntas perguntas = buscarPorId(id);
+        perguntas.setPerguntaTexto(perguntas.getPerguntaTexto());
+        perguntas.setTipo(perguntas.getTipo());
+
+        return  perguntasRepository.save(perguntas);
+    }
+
+    public void deletarPergunta(Long id) {
+        Perguntas perguntas = buscarPorId(id);
+        perguntasRepository.delete(perguntas);
+    }
+
 }
