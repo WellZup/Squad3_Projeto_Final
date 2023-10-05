@@ -1,6 +1,9 @@
 package com.squad3.bemestar.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +33,8 @@ public class Perguntas {
     //Cada campanha pode ter sua própria lista de perguntas associadas a ela.
     // Quando você cria uma campanha e adiciona perguntas a ela,
     // essas perguntas estarão relacionadas a essa campanha específica.
+
+    @JsonBackReference //Propriedade para indicar que esta é a extremidade inversa do relacionamento
     @ManyToOne
     @JoinColumn(name = "campanha_id")
     private Campanhas campanhas;
