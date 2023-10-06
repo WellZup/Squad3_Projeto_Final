@@ -2,6 +2,7 @@ package com.squad3.bemestar.controller;
 
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.service.RespostasService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/respostas")
-
+@RequestMapping("api/respostas") //api/v1/campanhas/<id>/perguntas/<id>/respostas
+@AllArgsConstructor
 public class RespostasController {
 
-    @Autowired
-    private RespostasService respostasService;
+
+    private final RespostasService respostasService;
 
 
     @GetMapping
