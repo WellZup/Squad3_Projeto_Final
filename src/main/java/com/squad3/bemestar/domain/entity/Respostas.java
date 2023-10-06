@@ -24,7 +24,6 @@ public class Respostas {
     @Column(name = "resposta_texto")
     private String respostaTexto;
 
-
     //Associar várias respostas a cada usuário
     // e rastrear qual usuário forneceu cada resposta.
     //Cada resposta estará vinculada a uma pergunta,
