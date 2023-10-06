@@ -1,6 +1,8 @@
 package com.squad3.bemestar.controller;
 
 
+import com.squad3.bemestar.domain.dto.PerguntasDTO;
+import com.squad3.bemestar.domain.entity.Campanhas;
 import com.squad3.bemestar.domain.entity.Perguntas;
 import com.squad3.bemestar.service.PerguntasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/perguntas")
@@ -19,31 +22,35 @@ public class PerguntasController {
     @Autowired
     private PerguntasService perguntasService;
 
+    //Endoint para listar todas as perguntas conforme DTO
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Perguntas>> listarPerguntas() {
+    public ResponseEntity<List<PerguntasDTO>> listarPerguntas() {
         List<Perguntas> perguntas = perguntasService.listarPerguntas();
-        return ResponseEntity.ok(perguntas);
+        List<PerguntasDTO> perguntasDTOs = perguntas.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(perguntasDTOs);
     }
 
+    //ENdpoint para buscar pergunta por ID
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Perguntas> buscarPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<PerguntasDTO> buscarPorId(@PathVariable("id") Long id) {
         try {
             Perguntas perguntas = perguntasService.buscarPorId(id);
-            return ResponseEntity.ok(perguntas);
+            PerguntasDTO perguntasDTO = convertToDTO(perguntas);
+            return ResponseEntity.ok(perguntasDTO);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return null;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Perguntas> adicionaPergunta(@RequestBody Perguntas pergunta) {
-        Perguntas novaPergunta = perguntasService.adicionaPergunta(pergunta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaPergunta);
+    public ResponseEntity<Perguntas> adicionaPergunta(@RequestBody Perguntas perguntas) {
+        Perguntas novaPergunta = perguntasService.adicionaPergunta(perguntas);
 
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaPergunta);
     }
 
-    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPergunta(@PathVariable Long id) {
         try {
             perguntasService.deletarPergunta(id);
@@ -53,10 +60,39 @@ public class PerguntasController {
         }
     }
 
-    //Endpoint para listar todas as perguntas de uma campanha especifica
-    @GetMapping("/{campanhaId}/perguntas")
-    public ResponseEntity<List<Perguntas>> listarPerguntasPorCampanha(@PathVariable Long campanhaId) {
-        List<Perguntas> perguntas = perguntasService.listarPerguntasPorCampanha(campanhaId);
+    //Endpoint para listar todas as perguntas de uma campanha especifica por campanhaID
+    @GetMapping("/campanhas/{campanhaId}")
+    public ResponseEntity<List<PerguntasDTO>> listarPerguntasPorCampanha(@PathVariable Long campanhaId) {
+        List<PerguntasDTO> perguntas = perguntasService.listarPerguntasPorCampanha(campanhaId);
         return ResponseEntity.ok(perguntas);
     }
+
+    private PerguntasDTO convertToDTO(Perguntas perguntas) {
+        PerguntasDTO perguntasDTO = new PerguntasDTO();
+        perguntasDTO.setId(perguntas.getId());
+        perguntasDTO.setPerguntaTexto(perguntas.getPerguntaTexto());
+        perguntasDTO.setTipo(perguntas.getTipo());
+
+        if (perguntas.getCampanhas() != null) {
+            perguntasDTO.setCampanhaId(perguntas.getCampanhas().getId());
+        }
+
+        return perguntasDTO;
+    }
+
+
+    private Perguntas convertToEntity(PerguntasDTO perguntaDTO) {
+        Perguntas pergunta = new Perguntas();
+        pergunta.setId(perguntaDTO.getId());
+        pergunta.setPerguntaTexto(perguntaDTO.getPerguntaTexto());
+        pergunta.setTipo(perguntaDTO.getTipo());
+
+        if (perguntaDTO.getCampanhaId() != null) {
+            Campanhas campanha = new Campanhas();
+            campanha.setId(perguntaDTO.getCampanhaId());
+//            pergunta.setCampanhas(campanha);//Associar campanha à pergunta
+        }
+        return pergunta;
+    }
+
 }

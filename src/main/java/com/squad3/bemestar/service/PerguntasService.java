@@ -1,11 +1,13 @@
 package com.squad3.bemestar.service;
 
+import com.squad3.bemestar.domain.dto.PerguntasDTO;
 import com.squad3.bemestar.domain.entity.Perguntas;
 import com.squad3.bemestar.repository.PerguntasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PerguntasService {
@@ -39,8 +41,31 @@ public class PerguntasService {
     }
 
     //Método para listar todas as perguntas de uma campanha especifica pelo ID
-    public List<Perguntas> listarPerguntasPorCampanha(Long campanhasId) {
-        return perguntasRepository.findByCampanhasId(campanhasId);
+    public List<PerguntasDTO> listarPerguntasPorCampanha(Long campanhasId) {
+        List<Perguntas> perguntas = perguntasRepository.findByCampanhasId(campanhasId);
+        return convertToDTOList(perguntas);
+    }
+
+    private List<PerguntasDTO> convertToDTOList(List<Perguntas> perguntas) {
+        return perguntas.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private PerguntasDTO convertToDTO(Perguntas pergunta) {
+        PerguntasDTO dto = new PerguntasDTO();
+        dto.setId(pergunta.getId());
+        dto.setPerguntaTexto(pergunta.getPerguntaTexto());
+        dto.setTipo(pergunta.getTipo());
+
+        // Definir campanhaId, se a pergunta tiver uma referência à campanha.
+        if (pergunta.getCampanhas() != null) {
+            dto.setCampanhaId(pergunta.getCampanhas().getId()); // Buscar campanhaId
+            dto.setNomeCampanha(pergunta.getCampanhas().getNomeCampanha()); // Buscar nomeCampanha
+
+        }
+
+        return dto;
     }
 
 
