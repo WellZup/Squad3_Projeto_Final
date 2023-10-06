@@ -3,6 +3,8 @@ package com.squad3.bemestar.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,8 +46,9 @@ public class Campanhas {
    //A opção mappedBy na associação @OneToMany.
     // Isso indica que a propriedade perguntas na classe Campanha está mapeada
     // para o relacionamento campanha na classe Pergunta.
-    @JsonIgnore //Propriedade para evitar a serialização circular.
+//    @JsonIgnore //Propriedade para evitar a serialização circular.
     @OneToMany(mappedBy = "campanhas", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Perguntas> perguntas;
 
 }
