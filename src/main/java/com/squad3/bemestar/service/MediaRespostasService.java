@@ -14,8 +14,8 @@ public class MediaRespostasService {
     @Autowired
     private MediaRepostasRepository mediaRepostasRepository;
 
-    public List<MediaRespostasDTO> calcularMediaRespostas() {
-        List<Object[]> result = mediaRepostasRepository.calcularMediaRespostas();
+    public List<MediaRespostasDTO> calcularMediaRespostas(Long campanhaId) {
+        List<Object[]> result = mediaRepostasRepository.calcularMediaRespostas(campanhaId);
 
         // Transformar os resultados em instâncias de MediaRespostasDTO e retorne a lista
         List<MediaRespostasDTO> medias = new ArrayList<>();
