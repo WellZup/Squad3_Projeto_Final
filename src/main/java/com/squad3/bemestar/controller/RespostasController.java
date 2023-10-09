@@ -31,13 +31,7 @@ public class RespostasController {
         List<Respostas> respostas = respostasService.listarRespostas();
         return ResponseEntity.ok(respostas);
     }
-//
-//    //Endpoint para adicionar uma nova resposta conforme DTO
-//    @PostMapping("/dto")
-//    public ResponseEntity<RespostasDTO> adicionaRespostaDTO(@RequestBody RespostasDTO respostasDTO) {
-//        RespostasDTO novaResposta = respostasService.adicionaRespostaDTO(respostasDTO);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(novaResposta);
-//    }
+
     //Endpoint para listar todas as respostas conforme DTO
     @GetMapping("/dto")
     public ResponseEntity<List<RespostasDTO>> listarRespostasDTO() {
