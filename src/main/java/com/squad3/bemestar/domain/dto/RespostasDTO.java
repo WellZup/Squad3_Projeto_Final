@@ -14,7 +14,7 @@ import lombok.Setter;
 public class RespostasDTO {
 
     private Long id;
-    private String respostaTexto;
+    private Double respostaTexto;
 
     // Mapeamento para buscar dados da pergunta
     private Long perguntaId;

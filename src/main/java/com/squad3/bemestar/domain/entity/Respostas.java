@@ -22,7 +22,7 @@ public class Respostas {
     private Long id;
 
     @Column(name = "resposta_texto")
-    private String respostaTexto;
+    private double respostaTexto;
 
     //Associar várias respostas a cada usuário
     // e rastrear qual usuário forneceu cada resposta.
