@@ -23,6 +23,10 @@ public class Respostas {
 
     @Column(name = "resposta_texto")
     private double respostaTexto;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 44b707683af5e9cecaf83d1b857a954274449b88
 
     //Associar várias respostas a cada usuário
     // e rastrear qual usuário forneceu cada resposta.
