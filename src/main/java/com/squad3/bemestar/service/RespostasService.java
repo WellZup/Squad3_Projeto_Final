@@ -30,13 +30,6 @@ public class RespostasService {
         return respostasRepository.findAll();
     }
 
-//    // Método para adicionar uma resposta a partir de um DTO
-//    public RespostasDTO adicionaRespostaDTO(RespostasDTO respostasDTO) {
-//        Respostas respostas = toEntity(respostasDTO); // Converte o DTO para entidade
-//        Respostas novaResposta = respostasRepository.save(respostas);
-//        return toDTO(novaResposta); // Converte a entidade para DTO
-//    }
-
     // Método para listar todas as respostas como DTOs
     public List<RespostasDTO> listarRespostasDTO() {
         List<Respostas> respostas = respostasRepository.findAll();

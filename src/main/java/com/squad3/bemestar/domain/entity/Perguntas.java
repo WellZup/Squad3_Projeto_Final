@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -21,6 +24,13 @@ public class Perguntas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//@NotNull - para garantir que o campo perguntaTexto não seja nulo.
+//@NotBlank - para garantir que o campo perguntaTexto não esteja em branco.
+//@Size - para especificar o tamanho mínimo e máximo permitido para o campo perguntaTexto.
+
+    @NotNull(message = "O campo 'perguntaTexto' não pode ser nulo.")
+    @NotBlank(message = "O campo 'perguntaTexto' não pode estar em branco.")
+    @Size(min = 5, max = 100, message = "O campo 'perguntaTexto' deve ter entre 5 e 100 caracteres.")
     @Column(name = "pergunta_texto")
     private String perguntaTexto;
 
