@@ -53,7 +53,7 @@ public class RespostasController {
         return ResponseEntity.ok(respostas);
     }
 
-<<<<<<< HEAD
+
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite listar todas as Respostas conforme DTO", description = "Listar Respostas DTO")
     @ApiResponses(value = {
@@ -61,8 +61,7 @@ public class RespostasController {
             @ApiResponse(responseCode = "405", description = "Not found - Nenhuma resposta encontrada!")
     })
 
-=======
->>>>>>> 44b707683af5e9cecaf83d1b857a954274449b88
+
     //Endpoint para listar todas as respostas conforme DTO
     @GetMapping("/dto")
     public ResponseEntity<List<RespostasDTO>> listarRespostasDTO() {
