@@ -4,6 +4,8 @@ package com.squad3.bemestar.controller;
 import com.squad3.bemestar.domain.dto.PerguntasDTO;
 import com.squad3.bemestar.domain.entity.Campanhas;
 import com.squad3.bemestar.domain.entity.Perguntas;
+import com.squad3.bemestar.exception.PerguntaCreationException;
+import com.squad3.bemestar.exception.PerguntaNotFoundException;
 import com.squad3.bemestar.service.PerguntasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +58,9 @@ public class PerguntasController {
     public ResponseEntity<PerguntasDTO> buscarPorId(@PathVariable("id") Long id) {
         try {
             Perguntas perguntas = perguntasService.buscarPorId(id);
+            if (perguntas == null) {
+                throw new PerguntaNotFoundException("Pergunta não encontrada para o ID: " + id);
+            }
             PerguntasDTO perguntasDTO = convertToDTO(perguntas);
             return ResponseEntity.ok(perguntasDTO);
         } catch (Exception e) {
@@ -70,11 +77,16 @@ public class PerguntasController {
 
     //Endpoint para criar uma nova pergunta
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Perguntas> adicionaPergunta(@RequestBody Perguntas perguntas) {
+    public ResponseEntity<Perguntas> adicionaPergunta(@RequestBody @Valid Perguntas perguntas) {
         // O uso da anotação @Valid aciona as validações do Bean Validation
+       try {
+
         Perguntas novaPergunta = perguntasService.adicionaPergunta(perguntas);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(novaPergunta);
+       } catch (Exception e) {
+           throw new PerguntaCreationException("Erro ao criar pergunta");
+       }
     }
 
     //Anotações para documentação no Swegger
@@ -85,7 +97,7 @@ public class PerguntasController {
     })
 
     //Endpoint para deletar pergunta
-    public ResponseEntity<Void> deletarPergunta(@PathVariable Long id) {
+    public ResponseEntity<Void> deletarPergunta(@PathVariable @Positive Long id) {
         try {
             perguntasService.deletarPergunta(id);
             return ResponseEntity.noContent().build();
@@ -106,8 +118,12 @@ public class PerguntasController {
     @GetMapping("/campanhas/{campanhaId}")
     public ResponseEntity<List<PerguntasDTO>> listarPerguntasPorCampanha(@PathVariable Long campanhaId) {
         List<PerguntasDTO> perguntas = perguntasService.listarPerguntasPorCampanha(campanhaId);
+        if (perguntas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(perguntas);
     }
+
 
     private PerguntasDTO convertToDTO(Perguntas perguntas) {
         PerguntasDTO perguntasDTO = new PerguntasDTO();

@@ -4,6 +4,7 @@ package com.squad3.bemestar.service;
 
 import com.squad3.bemestar.controller.CampanhasController;
 import com.squad3.bemestar.domain.entity.Campanhas;
+import com.squad3.bemestar.exception.CampanhaNotFoundException;
 import com.squad3.bemestar.repository.CampanhasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class CampanhasService {
             return campanhasRepository.save(campanhaAtualizada);
         } else {
 
-            throw new CampanhasController.CampanhaNotFoundException(id);
+            throw new CampanhaNotFoundException(id);
         }
     }
 

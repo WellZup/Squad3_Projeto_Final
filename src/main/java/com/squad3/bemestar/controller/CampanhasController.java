@@ -2,6 +2,8 @@ package com.squad3.bemestar.controller;
 
 import com.squad3.bemestar.domain.dto.CampanhasDTO;
 import com.squad3.bemestar.domain.entity.Campanhas;
+import com.squad3.bemestar.exception.CampanhaException;
+import com.squad3.bemestar.exception.CampanhaNotFoundException;
 import com.squad3.bemestar.service.CampanhasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -85,6 +87,8 @@ public class CampanhasController {
             Campanhas campanhasCriada = campanhasService.criarCampanha(campanhas);
             CampanhasDTO campanhasCriadaDTO = convertToDTO(campanhasCriada);
             return ResponseEntity.status(HttpStatus.CREATED).body(campanhasCriadaDTO);
+        } catch (CampanhaException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -167,9 +171,9 @@ public class CampanhasController {
     }
 
 
-    public static class CampanhaNotFoundException extends RuntimeException {
-        public CampanhaNotFoundException(Long id) {
-            super("Campanha com ID " + id + " não encontrada.");
-        }
-    }
+//    public static class CampanhaNotFoundException extends RuntimeException {
+//        public CampanhaNotFoundException(Long id) {
+//            super("Campanha com ID " + id + " não encontrada.");
+//        }
+//    }
 }
