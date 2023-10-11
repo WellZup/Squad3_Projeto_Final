@@ -3,13 +3,9 @@ package com.squad3.bemestar.controller;
 import com.squad3.bemestar.domain.dto.RespostasDTO;
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.service.RespostasService;
-
-import lombok.AllArgsConstructor;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/respostas") //api/v1/campanhas/<id>/perguntas/<id>/respostas
-@AllArgsConstructor
+@RequestMapping("api/respostas")
+
 public class RespostasController {
 
-
-    private final RespostasService respostasService;
+    @Autowired
+    private RespostasService respostasService;
 
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite adicionar uma nova Resposta", description = "Adicionar Resposta")
@@ -53,14 +49,12 @@ public class RespostasController {
         return ResponseEntity.ok(respostas);
     }
 
-
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite listar todas as Respostas conforme DTO", description = "Listar Respostas DTO")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso!"),
             @ApiResponse(responseCode = "405", description = "Not found - Nenhuma resposta encontrada!")
     })
-
 
     //Endpoint para listar todas as respostas conforme DTO
     @GetMapping("/dto")

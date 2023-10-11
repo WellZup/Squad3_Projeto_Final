@@ -3,6 +3,9 @@ package com.squad3.bemestar.controller;
 import com.squad3.bemestar.domain.dto.MediaRespostasDTO;
 import com.squad3.bemestar.service.MediaRespostasChartService;
 import com.squad3.bemestar.service.MediaRespostasService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +27,27 @@ public class MediaRespostasController {
     @Autowired
     private MediaRespostasChartService mediaRespostasChartService;
 
+    //Anotações para documentação no Swegger
+    @Operation(summary = "Permite listar a média de todas as Respostas", description = "Listar Média Respostas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso!"),
+            @ApiResponse(responseCode = "405", description = "Not found - Média não encontrada!")
+    })
+
     @GetMapping("/media-respostas/{campanhaId}")
     public ResponseEntity<List<MediaRespostasDTO>> calcularMediaRespostas(@PathVariable Long campanhaId) {
         List<MediaRespostasDTO> medias = mediaRespostasService.calcularMediaRespostas(campanhaId);
         return ResponseEntity.ok(medias);
     }
 
+
+    //Anotações para documentação no Swegger
+    @Operation(summary = "Permite listar média de todas as Respostas através de gráfico",
+            description = "Listar Respostas no Gráfico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso!"),
+            @ApiResponse(responseCode = "405", description = "Not found - Nenhuma resposta encontrada!")
+    })
     @GetMapping("/grafico/{campanhaId}")
     public ResponseEntity<List<MediaRespostasDTO>> calcularMediaRespostasChart(@PathVariable Long campanhaId) throws IOException {
         List<MediaRespostasDTO> medias = mediaRespostasService.calcularMediaRespostas(campanhaId);
