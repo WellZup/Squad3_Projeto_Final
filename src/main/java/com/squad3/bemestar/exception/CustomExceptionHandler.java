@@ -17,5 +17,18 @@ public class CustomExceptionHandler {
     public ResponseEntity<String> handlePerguntaCreationException(PerguntaCreationException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
+
+    @ExceptionHandler(RespostaNotFoundException.class)
+    public ResponseEntity<String> handleRespostaNotFoundException(RespostaNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(RespostaCreationException.class)
+    public ResponseEntity<String> handleRespostaCreationException(RespostaCreationException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
 }
 
+//Esse manipulador de exceção personalizado, pode tratar as exceções personalizadas
+// de forma centralizada e retornar respostas apropriadas com mensagens de erro significativas
+// para os clientes.

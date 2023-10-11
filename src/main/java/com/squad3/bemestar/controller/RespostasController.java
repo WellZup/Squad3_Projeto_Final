@@ -2,6 +2,8 @@ package com.squad3.bemestar.controller;
 
 import com.squad3.bemestar.domain.dto.RespostasDTO;
 import com.squad3.bemestar.domain.entity.Respostas;
+import com.squad3.bemestar.exception.RespostaCreationException;
+import com.squad3.bemestar.exception.RespostaNotFoundException;
 import com.squad3.bemestar.service.RespostasService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,8 +33,13 @@ public class RespostasController {
     //Endpoint para adicionar uma nova resposta
     @PostMapping
     public ResponseEntity<Respostas> adicionaResposta(@RequestBody Respostas respostas) {
+        try {
+
         Respostas novaResposta = respostasService.adicionaResposta(respostas);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaResposta);
+        }catch (Exception e) {
+            throw new RespostaCreationException("Erro ao criar a resposta: " + e.getMessage());
+        }
     }
 
     //Anotações para documentação no Swegger
@@ -75,7 +82,7 @@ public class RespostasController {
     public ResponseEntity<RespostasDTO> listarRespostaPorId(@PathVariable Long id) {
         RespostasDTO respostas = respostasService.listarRespostaPorId(id);
         if (respostas == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new RespostaNotFoundException("Resposta não encontrada para o ID: " + id);
         } else {
             return ResponseEntity.ok(respostas);
         }
