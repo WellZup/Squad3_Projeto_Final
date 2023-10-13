@@ -2,11 +2,10 @@ package com.squad3.bemestar.controller;
 
 
 import com.squad3.bemestar.domain.dto.PerguntasDTO;
-import com.squad3.bemestar.domain.entity.Campanhas;
 import com.squad3.bemestar.domain.entity.Perguntas;
 import com.squad3.bemestar.exception.PerguntaCreationException;
 import com.squad3.bemestar.exception.PerguntaNotFoundException;
-import com.squad3.bemestar.service.PerguntasService;
+import com.squad3.bemestar.service.PerguntasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 public class PerguntasController {
 
     @Autowired
-    private PerguntasService perguntasService;
+    private PerguntasServiceImpl perguntasService;
 
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite listar todas as perguntas", description = "Listar Perguntas")
@@ -64,7 +63,7 @@ public class PerguntasController {
             PerguntasDTO perguntasDTO = convertToDTO(perguntas);
             return ResponseEntity.ok(perguntasDTO);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new PerguntaNotFoundException("Pergunta não encontrada para o ID: " + id);
         }
     }
 
@@ -75,18 +74,20 @@ public class PerguntasController {
             @ApiResponse(responseCode = "405", description = "Not found - Erro ao criar pergunta!")
     })
 
-    //Endpoint para criar uma nova pergunta
+    //Endpoint para uma nova pergunta
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Perguntas> adicionaPergunta(@RequestBody @Valid Perguntas perguntas) {
         // O uso da anotação @Valid aciona as validações do Bean Validation
-       try {
+
+        try {
 
         Perguntas novaPergunta = perguntasService.adicionaPergunta(perguntas);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(novaPergunta);
-       } catch (Exception e) {
-           throw new PerguntaCreationException("Erro ao criar pergunta");
-       }
+        } catch (PerguntaCreationException e) {
+            throw new PerguntaCreationException("Erro ao criar pergunta: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     //Anotações para documentação no Swegger
@@ -101,8 +102,8 @@ public class PerguntasController {
         try {
             perguntasService.deletarPergunta(id);
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+        } catch (PerguntaNotFoundException e) {
+            throw new PerguntaNotFoundException("Pergunta não encontrada para o ID: " + id);
         }
     }
 
@@ -114,7 +115,7 @@ public class PerguntasController {
             @ApiResponse(responseCode = "405", description = "Not found - Nenhuma pergunta encontrada!")
     })
 
-    //Endpoint para listar todas as perguntas de uma campanha especifica por campanhaID
+    //Endpoint para listar todas as perguntas de uma campanha específica por campanhaID
     @GetMapping("/campanhas/{campanhaId}")
     public ResponseEntity<List<PerguntasDTO>> listarPerguntasPorCampanha(@PathVariable Long campanhaId) {
         List<PerguntasDTO> perguntas = perguntasService.listarPerguntasPorCampanha(campanhaId);
@@ -139,18 +140,6 @@ public class PerguntasController {
     }
 
 
-    private Perguntas convertToEntity(PerguntasDTO perguntaDTO) {
-        Perguntas pergunta = new Perguntas();
-        pergunta.setId(perguntaDTO.getId());
-        pergunta.setPerguntaTexto(perguntaDTO.getPerguntaTexto());
-        pergunta.setTipo(perguntaDTO.getTipo());
 
-        if (perguntaDTO.getCampanhaId() != null) {
-            Campanhas campanha = new Campanhas();
-            campanha.setId(perguntaDTO.getCampanhaId());
-//            pergunta.setCampanhas(campanha);//Associar campanha à pergunta
-        }
-        return pergunta;
-    }
 
 }

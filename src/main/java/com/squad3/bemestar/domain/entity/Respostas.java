@@ -22,8 +22,6 @@ public class Respostas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-//    @DecimalMin(value = "1", message = "A resposta deve ser no mínimo 1")
-//    @DecimalMax(value = "5", message = "A resposta deve ser no máximo 5")
     @Column(name = "resposta_texto")
     private double respostaTexto;
 

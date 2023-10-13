@@ -2,7 +2,6 @@ package com.squad3.bemestar.service;
 
 
 
-import com.squad3.bemestar.controller.CampanhasController;
 import com.squad3.bemestar.domain.entity.Campanhas;
 import com.squad3.bemestar.exception.CampanhaNotFoundException;
 import com.squad3.bemestar.repository.CampanhasRepository;
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 
 @Service
-public class CampanhasService {
+public class CampanhasServiceImpl implements CampanhaService{
 
     @Autowired
     private CampanhasRepository campanhasRepository;

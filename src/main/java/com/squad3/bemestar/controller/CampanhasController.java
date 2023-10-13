@@ -4,7 +4,7 @@ import com.squad3.bemestar.domain.dto.CampanhasDTO;
 import com.squad3.bemestar.domain.entity.Campanhas;
 import com.squad3.bemestar.exception.CampanhaException;
 import com.squad3.bemestar.exception.CampanhaNotFoundException;
-import com.squad3.bemestar.service.CampanhasService;
+import com.squad3.bemestar.service.CampanhasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,12 +17,14 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.squad3.bemestar.domain.mapper.CampanhaMapper.convertToEntity;
+
 @RestController
 @RequestMapping("api/campanhas")
 public class CampanhasController {
 
     @Autowired
-    private CampanhasService campanhasService;
+    private CampanhasServiceImpl campanhasService;
 
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite listar todas as Campanhas (pesquisas)", description = "Listar Campanhas")
@@ -44,7 +46,7 @@ public class CampanhasController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
 
@@ -161,19 +163,6 @@ public class CampanhasController {
         return campanhasDTO;
     }
 
-    private Campanhas convertToEntity(CampanhasDTO campanhasDTO) {
-        Campanhas campanhas = new Campanhas();
-        campanhas.setId(campanhasDTO.getId());
-        campanhas.setNomeCampanha(campanhasDTO.getNomeCampanha());
-        campanhas.setDataInicio(campanhasDTO.getDataInicio());
-        campanhas.setDataFim(campanhasDTO.getDataFim());
-        return campanhas;
-    }
 
 
-//    public static class CampanhaNotFoundException extends RuntimeException {
-//        public CampanhaNotFoundException(Long id) {
-//            super("Campanha com ID " + id + " não encontrada.");
-//        }
-//    }
 }

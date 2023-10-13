@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class RespostasService {
+public class RespostasServiceImpl implements RespostaService{
 
     @Autowired
     private RespostasRepository respostasRepository;
@@ -104,14 +104,5 @@ public class RespostasService {
         return dto;
     }
 
-    // Método de conversão de DTO para entidade
-    private Respostas toEntity(RespostasDTO respostasDTO) {
-        Respostas respostas = new Respostas();
-        respostas.setId(respostasDTO.getId());
-        respostas.setRespostaTexto(respostasDTO.getRespostaTexto());
-
-        // Outros campos que você deseja mapear
-        return respostas;
-    }
 }
 
