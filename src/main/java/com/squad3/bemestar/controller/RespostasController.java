@@ -4,7 +4,7 @@ import com.squad3.bemestar.domain.dto.RespostasDTO;
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.exception.RespostaCreationException;
 import com.squad3.bemestar.exception.RespostaNotFoundException;
-import com.squad3.bemestar.service.RespostasService;
+import com.squad3.bemestar.service.RespostasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -21,7 +21,7 @@ import java.util.List;
 public class RespostasController {
 
     @Autowired
-    private RespostasService respostasService;
+    private RespostasServiceImpl respostasService;
 
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite adicionar uma nova Resposta", description = "Adicionar Resposta")

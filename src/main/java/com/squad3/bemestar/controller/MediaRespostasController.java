@@ -2,7 +2,7 @@ package com.squad3.bemestar.controller;
 
 import com.squad3.bemestar.domain.dto.MediaRespostasDTO;
 import com.squad3.bemestar.service.MediaRespostasChartService;
-import com.squad3.bemestar.service.MediaRespostasService;
+import com.squad3.bemestar.service.MediaRespostasServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,7 +22,7 @@ import java.util.List;
 public class MediaRespostasController {
 
     @Autowired
-    private MediaRespostasService mediaRespostasService;
+    private MediaRespostasServiceImpl mediaRespostasService;
 
     @Autowired
     private MediaRespostasChartService mediaRespostasChartService;

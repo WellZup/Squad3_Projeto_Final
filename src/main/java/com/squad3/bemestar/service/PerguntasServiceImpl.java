@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PerguntasService {
+public class PerguntasServiceImpl implements PerguntaService{
 
     @Autowired
     private PerguntasRepository perguntasRepository;
