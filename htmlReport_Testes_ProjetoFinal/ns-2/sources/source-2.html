@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > CampanhasController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: CampanhasController (com.squad3.bemestar.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CampanhasController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38,8%
+  </span>
+  <span class="absValue">
+    (19/49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.controller;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.CampanhasDTO;
+&nbsp;import com.squad3.bemestar.domain.entity.Campanhas;
+&nbsp;import com.squad3.bemestar.exception.CampanhaException;
+&nbsp;import com.squad3.bemestar.exception.CampanhaNotFoundException;
+&nbsp;import com.squad3.bemestar.service.CampanhasServiceImpl;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponses;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import javax.validation.Valid;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;import static com.squad3.bemestar.domain.mapper.CampanhaMapper.convertToEntity;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;api/campanhas&quot;)
+<b class="fc">&nbsp;public class CampanhasController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private CampanhasServiceImpl campanhasService;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar todas as Campanhas (pesquisas)&quot;, description = &quot;Listar Campanhas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma campanha encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar todas as campanhas
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;List&lt;CampanhasDTO&gt;&gt; listarCampanhas() {
+&nbsp;        try {
+<b class="fc">&nbsp;            List&lt;Campanhas&gt; campanhas = campanhasService.listarCampanhas();</b>
+<b class="fc">&nbsp;            List&lt;CampanhasDTO&gt; campanhasDTOS = campanhas.stream()</b>
+<b class="fc">&nbsp;                    .map(this::convertToDTO).collect(Collectors.toList());</b>
+<b class="fc">&nbsp;            return ResponseEntity.ok(campanhasDTOS);</b>
+<b class="nc">&nbsp;        } catch (CampanhaNotFoundException e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            System.out.println(e.getMessage());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar as Campanhas (pesquisas) por ID&quot;, description = &quot;Listar Campanhas por ID&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Campanha não encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar campanhas por id
+&nbsp;    @GetMapping(&quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;CampanhasDTO&gt; listarCampanhasPorId(@PathVariable Long id) {
+&nbsp;        try {
+<b class="fc">&nbsp;            Campanhas campanhas = campanhasService.listarCampanhasPorId(id);</b>
+<b class="fc">&nbsp;            if (campanhas == null) {</b>
+<b class="nc">&nbsp;                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                CampanhasDTO campanhasDTO = convertToDTO(campanhas);</b>
+<b class="fc">&nbsp;                return ResponseEntity.ok(campanhasDTO);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite criar uma nova Campanha (pesquisa)&quot;, description = &quot;Criar Campanha&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Camapanha criada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao criar campanha!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para criar uma nova campanha
+&nbsp;    @PostMapping
+&nbsp;    public ResponseEntity&lt;CampanhasDTO&gt; criarCampanha(@Valid @RequestBody CampanhasDTO campanhasDTO) {
+&nbsp;        try {
+<b class="nc">&nbsp;            Campanhas campanhas = convertToEntity(campanhasDTO);</b>
+<b class="nc">&nbsp;            Campanhas campanhasCriada = campanhasService.criarCampanha(campanhas);</b>
+<b class="nc">&nbsp;            CampanhasDTO campanhasCriadaDTO = convertToDTO(campanhasCriada);</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.CREATED).body(campanhasCriadaDTO);</b>
+<b class="nc">&nbsp;        } catch (CampanhaException e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite Atualizar uma Campanha (pesquisa)&quot;, description = &quot;Atualizar Campanha&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Camapanha atualizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao atualizar campanha!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para atualizar uma campanha
+&nbsp;    @PutMapping(&quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;CampanhasDTO&gt; atualizarCampanha(@PathVariable Long id,
+&nbsp;                                                          @RequestBody CampanhasDTO campanhasDTO) {
+<b class="nc">&nbsp;        if (id == null || id &lt;= 0) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</b>
+&nbsp;        }
+&nbsp;        try {
+<b class="nc">&nbsp;            Campanhas campanhas = convertToEntity(campanhasDTO);</b>
+<b class="nc">&nbsp;            Campanhas campanhasAtualizada = campanhasService.atualizarCampanha(id, campanhas);</b>
+<b class="nc">&nbsp;            if (campanhasAtualizada == null) {</b>
+<b class="nc">&nbsp;                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                CampanhasDTO campanhasAtualizadaDTO = convertToDTO(campanhasAtualizada);</b>
+<b class="nc">&nbsp;                return ResponseEntity.ok(campanhasAtualizadaDTO);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        } catch (CampanhaNotFoundException e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite Deletar Campanha (pesquisa)&quot;, description = &quot;Deletar Campanha&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Camapanha deletada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao deletar campanha!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para deletar uma campanha
+&nbsp;    @DeleteMapping(&quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;Void&gt; deletarCampanha(@PathVariable Long id) {
+<b class="fc">&nbsp;        if (id == null || id &lt;= 0) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</b>
+&nbsp;        }
+&nbsp;        try {
+<b class="fc">&nbsp;            boolean deletado = campanhasService.deletarCampanha(id);</b>
+<b class="fc">&nbsp;            if (deletado) {</b>
+<b class="fc">&nbsp;                return ResponseEntity.noContent().build();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                return ResponseEntity.notFound().build();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Métodos de conversão (convertToDTO e convertToEntity) para converter entre a entidade e o DTO.
+&nbsp;
+&nbsp;    private CampanhasDTO convertToDTO(Campanhas campanhas) {
+<b class="fc">&nbsp;        CampanhasDTO campanhasDTO = new CampanhasDTO();</b>
+<b class="fc">&nbsp;        campanhasDTO.setId(campanhas.getId());</b>
+<b class="fc">&nbsp;        campanhasDTO.setNomeCampanha(campanhas.getNomeCampanha());</b>
+<b class="fc">&nbsp;        campanhasDTO.setDataInicio(campanhas.getDataInicio());</b>
+<b class="fc">&nbsp;        campanhasDTO.setDataFim(campanhas.getDataFim());</b>
+<b class="fc">&nbsp;        return campanhasDTO;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

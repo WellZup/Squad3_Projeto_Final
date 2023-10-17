@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MediaRespostasController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: MediaRespostasController (com.squad3.bemestar.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MediaRespostasController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.controller;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.MediaRespostasDTO;
+&nbsp;import com.squad3.bemestar.service.MediaRespostasChartService;
+&nbsp;import com.squad3.bemestar.service.MediaRespostasServiceImpl;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponses;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/calculos&quot;)
+<b class="fc">&nbsp;public class MediaRespostasController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private MediaRespostasServiceImpl mediaRespostasService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private MediaRespostasChartService mediaRespostasChartService;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar a média de todas as Respostas&quot;, description = &quot;Listar Média Respostas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Média não encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    @GetMapping(&quot;/media-respostas/{campanhaId}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;MediaRespostasDTO&gt;&gt; calcularMediaRespostas(@PathVariable Long campanhaId) {
+<b class="fc">&nbsp;        List&lt;MediaRespostasDTO&gt; medias = mediaRespostasService.calcularMediaRespostas(campanhaId);</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(medias);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar média de todas as Respostas através de gráfico&quot;,
+&nbsp;            description = &quot;Listar Respostas no Gráfico&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma resposta encontrada!&quot;)
+&nbsp;    })
+&nbsp;    @GetMapping(&quot;/grafico/{campanhaId}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;MediaRespostasDTO&gt;&gt; calcularMediaRespostasChart(@PathVariable Long campanhaId) throws IOException {
+<b class="fc">&nbsp;        List&lt;MediaRespostasDTO&gt; medias = mediaRespostasService.calcularMediaRespostas(campanhaId);</b>
+&nbsp;
+&nbsp;        // Aqui, você pode passar os dados obtidos para o serviço de geração de gráficos
+<b class="fc">&nbsp;        List&lt;Long&gt; perguntasId = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        List&lt;Double&gt; mediasRespostas = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        List&lt;String&gt; nomesCampanha = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        String nomeCampanha = &quot;&quot;;</b>
+<b class="fc">&nbsp;        List&lt;String&gt; perguntaTexto = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (MediaRespostasDTO media : medias) {</b>
+<b class="fc">&nbsp;            perguntasId.add(media.getPerguntaId());</b>
+<b class="fc">&nbsp;            mediasRespostas.add(media.getMediaRespostas());</b>
+<b class="fc">&nbsp;            nomesCampanha.add(media.getNomeCampanha());</b>
+<b class="fc">&nbsp;            nomeCampanha = media.getNomeCampanha();</b>
+<b class="fc">&nbsp;            perguntaTexto.add(media.getPerguntaTexto());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;
+&nbsp;        // Agora você pode chamar o serviço de geração de gráficos
+<b class="fc">&nbsp;        String nomeArquivoBase = &quot;&quot;;</b>
+<b class="fc">&nbsp;        mediaRespostasChartService.gerarGrafico(perguntasId, mediasRespostas, nomesCampanha, nomeCampanha, perguntaTexto, nomeArquivoBase);</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        return ResponseEntity.ok(medias);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

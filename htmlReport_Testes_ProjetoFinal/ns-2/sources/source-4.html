@@ -1,0 +1,249 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PerguntasController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: PerguntasController (com.squad3.bemestar.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PerguntasController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55,9%
+  </span>
+  <span class="absValue">
+    (19/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.controller;
+&nbsp;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.PerguntasDTO;
+&nbsp;import com.squad3.bemestar.domain.entity.Perguntas;
+&nbsp;import com.squad3.bemestar.exception.PerguntaCreationException;
+&nbsp;import com.squad3.bemestar.exception.PerguntaNotFoundException;
+&nbsp;import com.squad3.bemestar.service.PerguntasServiceImpl;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponses;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.MediaType;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import javax.validation.Valid;
+&nbsp;import javax.validation.constraints.Positive;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;api/perguntas&quot;)
+&nbsp;
+<b class="fc">&nbsp;public class PerguntasController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private PerguntasServiceImpl perguntasService;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar todas as perguntas&quot;, description = &quot;Listar Perguntas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma pergunta encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endoint para listar todas as perguntas conforme DTO
+&nbsp;    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+&nbsp;    public ResponseEntity&lt;List&lt;PerguntasDTO&gt;&gt; listarPerguntas() {
+<b class="fc">&nbsp;        List&lt;Perguntas&gt; perguntas = perguntasService.listarPerguntas();</b>
+<b class="fc">&nbsp;        List&lt;PerguntasDTO&gt; perguntasDTOs = perguntas.stream()</b>
+<b class="fc">&nbsp;                .map(this::convertToDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(perguntasDTOs);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar as perguntas por ID&quot;, description = &quot;Listar Perguntas por ID&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Pergunta não encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para buscar pergunta por ID
+&nbsp;    @GetMapping(path = &quot;/{id}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+&nbsp;    public ResponseEntity&lt;PerguntasDTO&gt; buscarPorId(@PathVariable(&quot;id&quot;) Long id) {
+&nbsp;        try {
+<b class="fc">&nbsp;            Perguntas perguntas = perguntasService.buscarPorId(id);</b>
+<b class="fc">&nbsp;            if (perguntas == null) {</b>
+<b class="fc">&nbsp;                throw new PerguntaNotFoundException(&quot;Pergunta não encontrada para o ID: &quot; + id);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            PerguntasDTO perguntasDTO = convertToDTO(perguntas);</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(perguntasDTO);</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            throw new PerguntaNotFoundException(&quot;Pergunta não encontrada para o ID: &quot; + id);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite criar uma nova Pergunta&quot;, description = &quot;Criar Perguntas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Pergunta criada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao criar pergunta!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para uma nova pergunta
+&nbsp;    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+&nbsp;    public ResponseEntity&lt;Perguntas&gt; adicionaPergunta(@RequestBody @Valid Perguntas perguntas) {
+&nbsp;        // O uso da anotação @Valid aciona as validações do Bean Validation
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="fc">&nbsp;        Perguntas novaPergunta = perguntasService.adicionaPergunta(perguntas);</b>
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.CREATED).body(novaPergunta);</b>
+<b class="nc">&nbsp;        } catch (PerguntaCreationException e) {</b>
+<b class="nc">&nbsp;            throw new PerguntaCreationException(&quot;Erro ao criar pergunta: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;        } catch (Exception e) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite deletar Pergunta&quot;, description = &quot;Deletar Perguntas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Pergunta deletada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao deletar pergunta!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para deletar pergunta
+&nbsp;    public ResponseEntity&lt;Void&gt; deletarPergunta(@PathVariable @Positive Long id) {
+&nbsp;        try {
+<b class="nc">&nbsp;            perguntasService.deletarPergunta(id);</b>
+<b class="nc">&nbsp;            return ResponseEntity.noContent().build();</b>
+<b class="nc">&nbsp;        } catch (PerguntaNotFoundException e) {</b>
+<b class="nc">&nbsp;            throw new PerguntaNotFoundException(&quot;Pergunta não encontrada para o ID: &quot; + id);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar todas as Perguntas de uma determinada Camapanha (Pesquisa)&quot;,
+&nbsp;            description = &quot;Listar Perguntas por Camapanha&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma pergunta encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar todas as perguntas de uma campanha específica por campanhaID
+&nbsp;    @GetMapping(&quot;/campanhas/{campanhaId}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;PerguntasDTO&gt;&gt; listarPerguntasPorCampanha(@PathVariable Long campanhaId) {
+<b class="nc">&nbsp;        List&lt;PerguntasDTO&gt; perguntas = perguntasService.listarPerguntasPorCampanha(campanhaId);</b>
+<b class="nc">&nbsp;        if (perguntas.isEmpty()) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return ResponseEntity.ok(perguntas);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private PerguntasDTO convertToDTO(Perguntas perguntas) {
+<b class="fc">&nbsp;        PerguntasDTO perguntasDTO = new PerguntasDTO();</b>
+<b class="fc">&nbsp;        perguntasDTO.setId(perguntas.getId());</b>
+<b class="fc">&nbsp;        perguntasDTO.setPerguntaTexto(perguntas.getPerguntaTexto());</b>
+<b class="fc">&nbsp;        perguntasDTO.setTipo(perguntas.getTipo());</b>
+&nbsp;
+<b class="fc">&nbsp;        if (perguntas.getCampanhas() != null) {</b>
+<b class="nc">&nbsp;            perguntasDTO.setCampanhaId(perguntas.getCampanhas().getId());</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return perguntasDTO;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>
