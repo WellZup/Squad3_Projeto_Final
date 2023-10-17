@@ -6,7 +6,7 @@ Projeto final Catalisa
 
 
 
-![Logo](https://zupapp.com.br/public/logo.png)
+![Logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQseMBk78B9iAy2Ps39t6X_2t1XIXxrLLbFZnDomlFxxOi9Bqa6LBiqIc5M8j4MaADBceI&usqp=CAU)
 
 
 # 🩺Bem Estar Zup🩺
