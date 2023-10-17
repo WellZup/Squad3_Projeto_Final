@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MediaRespostasChartService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.service</a>
+</div>
+
+<h1>Coverage Summary for Class: MediaRespostasChartService (com.squad3.bemestar.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MediaRespostasChartService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4,5%
+  </span>
+  <span class="absValue">
+    (1/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.service;
+&nbsp;
+&nbsp;import org.knowm.xchart.BitmapEncoder;
+&nbsp;import org.knowm.xchart.CategoryChart;
+&nbsp;import org.knowm.xchart.CategoryChartBuilder;
+&nbsp;import org.knowm.xchart.style.Styler;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.IOException;
+&nbsp;import java.text.SimpleDateFormat;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class MediaRespostasChartService {</b>
+&nbsp;
+&nbsp;
+&nbsp;    public void gerarGrafico(List&lt;Long&gt; perguntasId, List&lt;Double&gt; medias,
+&nbsp;                             List&lt;String&gt; nomesCampanha, String nomeCampanha,
+&nbsp;                             List&lt;String&gt; perguntaTexto, String nomeArquivoBase) throws IOException {
+&nbsp;        // Criar um gráfico de barras
+<b class="nc">&nbsp;        CategoryChart chart = new CategoryChartBuilder()</b>
+<b class="nc">&nbsp;                .width(1000)</b>
+<b class="nc">&nbsp;                .height(1000)</b>
+<b class="nc">&nbsp;                .title(&quot;Média de Respostas por Pergunta - &quot; + nomeCampanha)</b>
+<b class="nc">&nbsp;                .xAxisTitle(&quot;Pergunta ID&quot;)</b>
+<b class="nc">&nbsp;                .yAxisTitle(&quot;Média&quot;)</b>
+<b class="nc">&nbsp;                .theme(Styler.ChartTheme.Matlab)</b>
+<b class="nc">&nbsp;                .build();</b>
+&nbsp;
+<b class="nc">&nbsp;        chart.getStyler().setHasAnnotations(true);</b>
+&nbsp;
+&nbsp;        // Criar uma lista de cores personalizadas para as barras
+<b class="nc">&nbsp;        List&lt;Color&gt; customColors = Arrays.asList(</b>
+&nbsp;                Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK);
+&nbsp;
+&nbsp;        // Adicionar séries de dados ao gráfico - Gráfico de barra simples
+<b class="nc">&nbsp;        for (int i = 0; i &lt; perguntasId.size(); i++) {</b>
+<b class="nc">&nbsp;            String descricao = &quot;ID &quot; + perguntasId.get(i) + &quot;: &quot; + perguntaTexto.get(i);</b>
+<b class="nc">&nbsp;            chart.addSeries(descricao, new ArrayList&lt;&gt;(Arrays.asList(&quot; &quot;)),</b>
+<b class="nc">&nbsp;                            new ArrayList&lt;&gt;(Arrays.asList(medias.get(i))))</b>
+<b class="nc">&nbsp;                    .setFillColor(customColors.get(i)); // Definir a cor da barra</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Adicionar descrições ou legendas abaixo do gráfico
+<b class="nc">&nbsp;        chart.getStyler().setLegendPosition(Styler.LegendPosition.OutsideS);</b>
+<b class="nc">&nbsp;        chart.getStyler().setLegendLayout(Styler.LegendLayout.Vertical);</b>
+&nbsp;
+&nbsp;        //Obter data e hora atual para gerar arquivo PNG
+<b class="nc">&nbsp;        SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;ddMMyyyy-HHmmss&quot;);</b>
+<b class="nc">&nbsp;        String dataHora = dateFormat.format(new Date());</b>
+&nbsp;
+&nbsp;        // Concatenar a data e hora ao nome do arquivo
+<b class="nc">&nbsp;        nomeArquivoBase = nomeCampanha + &quot;-&quot; + dataHora + &quot;.png&quot;;</b>
+&nbsp;
+&nbsp;        // Salvar o gráfico em um arquivo PNG
+<b class="nc">&nbsp;        BitmapEncoder.saveBitmap(chart, nomeArquivoBase, BitmapEncoder.BitmapFormat.PNG);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

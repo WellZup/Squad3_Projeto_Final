@@ -1,0 +1,179 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > CampanhasServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.service</a>
+</div>
+
+<h1>Coverage Summary for Class: CampanhasServiceImpl (com.squad3.bemestar.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CampanhasServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7,1%
+  </span>
+  <span class="absValue">
+    (1/14)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CampanhasServiceImpl$$EnhancerBySpringCGLIB$$f6924ab5</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7,1%
+  </span>
+  <span class="absValue">
+    (1/14)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.service;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.entity.Campanhas;
+&nbsp;import com.squad3.bemestar.exception.CampanhaNotFoundException;
+&nbsp;import com.squad3.bemestar.repository.CampanhasRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class CampanhasServiceImpl implements CampanhaService{</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private CampanhasRepository campanhasRepository;
+&nbsp;
+&nbsp;    //Método para listar todas as campanhas
+&nbsp;    public List&lt;Campanhas&gt; listarCampanhas() {
+<b class="nc">&nbsp;        return campanhasRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para listar campanhas por id
+&nbsp;    public Campanhas listarCampanhasPorId(Long id) {
+<b class="nc">&nbsp;        return campanhasRepository.findById(id).get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para criar uma nova campanha
+&nbsp;    public Campanhas criarCampanha(Campanhas campanhas) {
+<b class="nc">&nbsp;        return campanhasRepository.save(campanhas);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para atualizar uma campanha
+&nbsp;    public Campanhas atualizarCampanha(Long id, Campanhas campanhas) {
+<b class="nc">&nbsp;        Optional&lt;Campanhas&gt; campanhaExistente = campanhasRepository.findById(id);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (campanhaExistente.isPresent()) {</b>
+<b class="nc">&nbsp;            Campanhas campanhaAtualizada = campanhaExistente.get();</b>
+&nbsp;
+&nbsp;            // Atualizar apenas os campos desejados da campanha atualizada
+<b class="nc">&nbsp;            campanhaAtualizada.setNomeCampanha(campanhas.getNomeCampanha());</b>
+<b class="nc">&nbsp;            campanhaAtualizada.setDataInicio(campanhas.getDataInicio());</b>
+<b class="nc">&nbsp;            campanhaAtualizada.setDataFim(campanhas.getDataFim());</b>
+&nbsp;
+&nbsp;            // Salvar a campanha atualizada no banco de dados
+<b class="nc">&nbsp;            return campanhasRepository.save(campanhaAtualizada);</b>
+&nbsp;        } else {
+&nbsp;
+<b class="nc">&nbsp;            throw new CampanhaNotFoundException(id);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    //Método para deletar uma campanha
+&nbsp;    public boolean deletarCampanha(Long id) {
+<b class="nc">&nbsp;        campanhasRepository.deleteById(id);</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

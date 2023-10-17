@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > RespostasController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: RespostasController (com.squad3.bemestar.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RespostasController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    69,2%
+  </span>
+  <span class="absValue">
+    (9/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.controller;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.RespostasDTO;
+&nbsp;import com.squad3.bemestar.domain.entity.Respostas;
+&nbsp;import com.squad3.bemestar.exception.RespostaCreationException;
+&nbsp;import com.squad3.bemestar.exception.RespostaNotFoundException;
+&nbsp;import com.squad3.bemestar.service.RespostasServiceImpl;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponses;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;api/respostas&quot;)
+&nbsp;
+<b class="fc">&nbsp;public class RespostasController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private RespostasServiceImpl respostasService;
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite adicionar uma nova Resposta&quot;, description = &quot;Adicionar Resposta&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Resposta adicionada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Erro ao adicionar resposta!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para adicionar uma nova resposta
+&nbsp;    @PostMapping
+&nbsp;    public ResponseEntity&lt;Respostas&gt; adicionaResposta(@RequestBody Respostas respostas) {
+&nbsp;        try {
+&nbsp;
+<b class="fc">&nbsp;        Respostas novaResposta = respostasService.adicionaResposta(respostas);</b>
+<b class="fc">&nbsp;        return ResponseEntity.status(HttpStatus.CREATED).body(novaResposta);</b>
+<b class="nc">&nbsp;        }catch (Exception e) {</b>
+<b class="nc">&nbsp;            throw new RespostaCreationException(&quot;Erro ao criar a resposta: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar todas as Respostas&quot;, description = &quot;Listar Respostas&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma resposta encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar todas as respostas
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;List&lt;Respostas&gt;&gt; listarRespostas() {
+<b class="fc">&nbsp;        List&lt;Respostas&gt; respostas = respostasService.listarRespostas();</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(respostas);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar todas as Respostas conforme DTO&quot;, description = &quot;Listar Respostas DTO&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Nenhuma resposta encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar todas as respostas conforme DTO
+&nbsp;    @GetMapping(&quot;/dto&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;RespostasDTO&gt;&gt; listarRespostasDTO() {
+<b class="nc">&nbsp;        List&lt;RespostasDTO&gt; respostas = respostasService.listarRespostasDTO();</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(respostas);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Anotações para documentação no Swegger
+&nbsp;    @Operation(summary = &quot;Permite listar Respostas por ID&quot;, description = &quot;Listar Respostas por ID&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Busca realizada com sucesso!&quot;),
+&nbsp;            @ApiResponse(responseCode = &quot;405&quot;, description = &quot;Not found - Resposta não encontrada!&quot;)
+&nbsp;    })
+&nbsp;
+&nbsp;    //Endpoint para listar todas as respostas por id
+&nbsp;    @GetMapping(&quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;RespostasDTO&gt; listarRespostaPorId(@PathVariable Long id) {
+<b class="fc">&nbsp;        RespostasDTO respostas = respostasService.listarRespostaPorId(id);</b>
+<b class="fc">&nbsp;        if (respostas == null) {</b>
+<b class="fc">&nbsp;            throw new RespostaNotFoundException(&quot;Resposta não encontrada para o ID: &quot; + id);</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            return ResponseEntity.ok(respostas);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

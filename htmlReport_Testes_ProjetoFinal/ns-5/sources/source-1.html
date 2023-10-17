@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > CampanhaMapper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.domain.mapper</a>
+</div>
+
+<h1>Coverage Summary for Class: CampanhaMapper (com.squad3.bemestar.domain.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CampanhaMapper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.domain.mapper;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.CampanhasDTO;
+&nbsp;import com.squad3.bemestar.domain.entity.Campanhas;
+&nbsp;
+<b class="nc">&nbsp;public class CampanhaMapper {</b>
+&nbsp;    //Métodos de conversão (convertToDTO e convertToEntity) para converter entre a entidade e o DTO.
+&nbsp;
+&nbsp;    public static CampanhasDTO convertToDTO(Campanhas campanhas) {
+<b class="nc">&nbsp;        CampanhasDTO campanhasDTO = new CampanhasDTO();</b>
+<b class="nc">&nbsp;        campanhasDTO.setId(campanhas.getId());</b>
+<b class="nc">&nbsp;        campanhasDTO.setNomeCampanha(campanhas.getNomeCampanha());</b>
+<b class="nc">&nbsp;        campanhasDTO.setDataInicio(campanhas.getDataInicio());</b>
+<b class="nc">&nbsp;        campanhasDTO.setDataFim(campanhas.getDataFim());</b>
+<b class="nc">&nbsp;        return campanhasDTO;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Campanhas convertToEntity(CampanhasDTO campanhasDTO) {
+<b class="nc">&nbsp;        Campanhas campanhas = new Campanhas();</b>
+<b class="nc">&nbsp;        campanhas.setId(campanhasDTO.getId());</b>
+<b class="nc">&nbsp;        campanhas.setNomeCampanha(campanhasDTO.getNomeCampanha());</b>
+<b class="nc">&nbsp;        campanhas.setDataInicio(campanhasDTO.getDataInicio());</b>
+<b class="nc">&nbsp;        campanhas.setDataFim(campanhasDTO.getDataFim());</b>
+<b class="nc">&nbsp;        return campanhas;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>

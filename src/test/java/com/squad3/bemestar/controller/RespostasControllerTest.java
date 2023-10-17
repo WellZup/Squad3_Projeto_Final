@@ -1,6 +1,7 @@
 package com.squad3.bemestar.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squad3.bemestar.domain.dto.RespostasDTO;
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.service.RespostasServiceImpl;
 import io.restassured.http.ContentType;
@@ -83,20 +84,21 @@ class RespostasControllerTest {
     }
 
 
-//    @DisplayName("Buscar respostas por ID")
-//    @Test
-//    public void buscarRespostaPorId() throws Exception {
-//
-//        Respostas respostas = new Respostas();
-//
-//        Mockito.when(respostaService.listarRespostaPorId(respostas.getId())).thenReturn(Optional.of(respostas));
-//        mockMvc.perform(get("/api/respostas/{id}", 1L))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType("application/json"))
-//                .andExpect(jsonPath("$.id").value(1L))
-//                .andExpect(jsonPath("$.respostaTexto").value(1111));
-//
-//    }
+    @DisplayName("Buscar respostas por ID")
+    @Test
+    public void buscarRespostaPorId() throws Exception {
+        RespostasDTO respostasDTO = new RespostasDTO();
+        respostasDTO.setId(1L);
+        respostasDTO.setRespostaTexto(5.0);
+
+        Mockito.when(respostaService.listarRespostaPorId(1L)).thenReturn(respostasDTO);
+
+        mockMvc.perform(get("/api/respostas/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.respostaTexto").value(5.0));
+    }
 
 
 

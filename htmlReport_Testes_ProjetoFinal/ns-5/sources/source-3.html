@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > RespostaMapper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.squad3.bemestar.domain.mapper</a>
+</div>
+
+<h1>Coverage Summary for Class: RespostaMapper (com.squad3.bemestar.domain.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RespostaMapper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.squad3.bemestar.domain.mapper;
+&nbsp;
+&nbsp;import com.squad3.bemestar.domain.dto.RespostasDTO;
+&nbsp;import com.squad3.bemestar.domain.entity.Campanhas;
+&nbsp;import com.squad3.bemestar.domain.entity.Perguntas;
+&nbsp;import com.squad3.bemestar.domain.entity.Respostas;
+&nbsp;import com.squad3.bemestar.domain.entity.Usuario;
+&nbsp;
+<b class="nc">&nbsp;public class RespostaMapper {</b>
+&nbsp;    // Método de conversão de DTO para entidade
+&nbsp;    private Respostas toEntity(RespostasDTO respostasDTO) {
+<b class="nc">&nbsp;        Respostas respostas = new Respostas();</b>
+<b class="nc">&nbsp;        respostas.setId(respostasDTO.getId());</b>
+<b class="nc">&nbsp;        respostas.setRespostaTexto(respostasDTO.getRespostaTexto());</b>
+&nbsp;
+&nbsp;        // Outros campos que você deseja mapear
+<b class="nc">&nbsp;        return respostas;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Método de conversão de entidade para DTO
+&nbsp;    private RespostasDTO toDTO(Respostas respostas) {
+<b class="nc">&nbsp;        RespostasDTO dto = new RespostasDTO();</b>
+<b class="nc">&nbsp;        dto.setId(respostas.getId());</b>
+<b class="nc">&nbsp;        dto.setRespostaTexto(respostas.getRespostaTexto());</b>
+&nbsp;
+&nbsp;        // Outros campos que você deseja mapear
+<b class="nc">&nbsp;        Perguntas pergunta = respostas.getPerguntas();</b>
+<b class="nc">&nbsp;        if (pergunta != null) {</b>
+<b class="nc">&nbsp;            dto.setPerguntaId(pergunta.getId());</b>
+<b class="nc">&nbsp;            dto.setPerguntaTexto(pergunta.getPerguntaTexto());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Usuario usuarioColaborador = respostas.getUsuarioColaborador();</b>
+<b class="nc">&nbsp;        if (usuarioColaborador != null) {</b>
+<b class="nc">&nbsp;            dto.setUsuarioColaboradorId(usuarioColaborador.getId());</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Mapear o campo nomeCampanha
+<b class="nc">&nbsp;        Campanhas campanha = pergunta.getCampanhas();</b>
+<b class="nc">&nbsp;        if (campanha != null) {</b>
+<b class="nc">&nbsp;            dto.setNomeCampanha(campanha.getNomeCampanha());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return dto;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-17 12:25</div>
+</div>
+</body>
+</html>
