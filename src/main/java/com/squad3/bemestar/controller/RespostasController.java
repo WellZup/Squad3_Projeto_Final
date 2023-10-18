@@ -4,7 +4,7 @@ import com.squad3.bemestar.domain.dto.RespostasDTO;
 import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.exception.RespostaCreationException;
 import com.squad3.bemestar.exception.RespostaNotFoundException;
-import com.squad3.bemestar.service.RespostasService;
+import com.squad3.bemestar.service.RespostaService;
 
 import lombok.AllArgsConstructor;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class RespostasController {
 
 
-    private final RespostasService respostasService;
+    private final RespostaService respostasService;
 
     //Anotações para documentação no Swegger
     @Operation(summary = "Permite adicionar uma nova Resposta", description = "Adicionar Resposta")
