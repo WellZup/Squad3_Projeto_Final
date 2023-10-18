@@ -98,8 +98,10 @@ public class PerguntasController {
     })
 
     //Endpoint para deletar pergunta
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPergunta(@PathVariable @Positive Long id) {
         try {
+
             perguntasService.deletarPergunta(id);
             return ResponseEntity.noContent().build();
         } catch (PerguntaNotFoundException e) {
@@ -107,9 +109,10 @@ public class PerguntasController {
         }
     }
 
+
     //Anotações para documentação no Swegger
-    @Operation(summary = "Permite listar todas as Perguntas de uma determinada Camapanha (Pesquisa)",
-            description = "Listar Perguntas por Camapanha")
+    @Operation(summary = "Permite listar todas as Perguntas de uma determinada Campanha (Pesquisa)",
+            description = "Listar Perguntas por Campanha")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Busca realizada com sucesso!"),
             @ApiResponse(responseCode = "405", description = "Not found - Nenhuma pergunta encontrada!")
