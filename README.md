@@ -65,7 +65,8 @@ mvn clean install
 
 - Para acessar o Report de testes unitários dos Controllers, clique abaixo.
 
-[Report de Testes Unitários](https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html)
+[//]: # ([Report de Testes Unitários]&#40;https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html&#41;)
+<a href="https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html" target="_blank">Report de Testes Unitários</a>
 
 
 ## Autores
