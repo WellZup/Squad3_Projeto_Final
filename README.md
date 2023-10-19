@@ -43,7 +43,7 @@ https://github.com/WellZup/Squad3_Projeto_Final
 
 3. Compile o projeto com Maven:
 ```bash
-mvn clean instal
+mvn clean install
 ```
 
 4. Execute o projeto
@@ -62,6 +62,10 @@ mvn clean instal
 - Para acessar a documentação, inicie o projeto na IDE, em seguida clique no link abaixo.
 
 [Documentação](http://localhost:8080/swagger-ui/index.html#/)
+
+- Para acessar o Report de testes unitários dos Controllers, clique abaixo.
+
+[Report de Testes Unitários](https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html)
 
 
 ## Autores
