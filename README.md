@@ -1,9 +1,9 @@
-# 🧑‍💻Squad3_Projeto_Final🧑‍💻
+# 🧑‍💻Squad3_Projeto_Final🧑‍💻 
 
-Projeto final Catalisa
+Projeto Final - Catalisa 2023
 
-<p align="center">
-<img src="https://img.shields.io/badge/Status-Projeto_Finalizado-red"></p>
+<p align="center"> 
+<img src="https://img.shields.io/badge/Status-Projeto_Finalizado-red" /></p>
 
 
 
@@ -24,13 +24,13 @@ individual, ajudando os colaboradores a entenderem melhor sua saúde mental e f�
 
 ## 🏗️Stack utilizada🏗️
 
-**Front-end:** Figma
+**Front-end:** Figma.
 
-**Back-end:** Spring Boot (Java 11)
+**Back-end:** Spring Boot (Java 11).
 
-**Banco-de-dados:** H2, Postgres
+**Banco de dados:** H2, Postgres.
 
-**Idea Desenvolvimento:** Intellij
+**IDE de Desenvolvimento:** IntelliJ IDEA.
 
 ## 📀Instalação e Requisitos de Sistema📀
 
@@ -65,7 +65,6 @@ mvn clean install
 ![img.png](img.png)
 </p>
 
-6. Visualizar o Swagger em: http://localhost:8080/swagger-ui/index.html
 
 ## 📱Funcionalidades📱
 
@@ -75,13 +74,13 @@ mvn clean install
 
 ## 🗃️Documentação🗃️
 
-- Para acessar a documentação, inicie o projeto na IDE, em seguida clique no link abaixo.
+- Para acessar a documentação pelo Swagger, inicie o projeto na IDE, em seguida clique no link abaixo.
 
-[Documentação](http://localhost:8080/swagger-ui/index.html#/)
+[Documentação pelo Swagger.](http://localhost:8080/swagger-ui/index.html#/)
 
 - Para acessar o Report de testes unitários dos Controllers, clique abaixo.
 
-[Report de Testes Unitários](https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html)
+[Report de Testes Unitários.](https://htmlpreview.github.io/?https://github.com/WellZup/Squad3_Projeto_Final/blob/main/htmlReport_Testes_ProjetoFinal/index.html)
 
 ## Autores
 
