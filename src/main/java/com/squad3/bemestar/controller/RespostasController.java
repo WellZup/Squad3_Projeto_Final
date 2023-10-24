@@ -5,14 +5,10 @@ import com.squad3.bemestar.domain.entity.Respostas;
 import com.squad3.bemestar.exception.RespostaCreationException;
 import com.squad3.bemestar.exception.RespostaNotFoundException;
 import com.squad3.bemestar.service.RespostaService;
-
-import lombok.AllArgsConstructor;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -2,10 +2,7 @@ package com.squad3.bemestar.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squad3.bemestar.domain.entity.Perguntas;
-import com.squad3.bemestar.domain.entity.Respostas;
-import com.squad3.bemestar.service.PerguntaService;
 import com.squad3.bemestar.service.PerguntasServiceImpl;
-import com.squad3.bemestar.service.RespostasServiceImpl;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,9 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

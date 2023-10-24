@@ -1,7 +1,7 @@
 package com.squad3.bemestar.domain.entity;
 
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;

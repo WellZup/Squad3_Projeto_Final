@@ -2,7 +2,9 @@ package com.squad3.bemestar.domain.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Setter
